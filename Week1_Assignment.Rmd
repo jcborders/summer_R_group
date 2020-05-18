@@ -2,7 +2,7 @@
 title: "R Group - Week 1"
 author: "James Borders"
 date: "5/18/2020"
-output: html_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
