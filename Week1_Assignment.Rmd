@@ -21,19 +21,15 @@ data <- read.csv("cursing2.csv")
 glimpse(data)
 ```
 
-```{r, echo = FALSE}
-#Change Nlett to a factor to allow for discrete x-axis for data viz
-data$Nlett2 <- as.factor(data$Nlett)
-```
-
 # Data Visualization of Word Length by Tabooness
 ```{r}
-data %>% ggplot(aes(x = Nlett2, y = Taboo)) +
+data %>% ggplot(aes(x = Nlett, y = Taboo)) +
   geom_point() +
   labs(x = "Word Length",
        y = "Tabooness") +
   theme_cowplot() +
-  scale_x_discrete()
+  scale_x_continuous(breaks = c(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)) +
+  geom_smooth(method = "lm")
 ```
 
 # Regression examining the effects of word length and valence on tabooness
