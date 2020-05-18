@@ -1,0 +1,40 @@
+---
+title: "R Group - Week 1"
+author: "James Borders"
+date: "5/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning = FALSE, echo = FALSE, include = FALSE}
+library(tidyverse)
+```
+
+# Import Data
+```{r}
+data <- read.csv("cursing2.csv")
+glimpse(data)
+```
+
+# Data Visualization of Word Length by Tabooness
+```{r, warning = FALSE, message = FALSE}
+data %>% ggplot(aes(x = Nlett, y = Taboo)) +
+  geom_point() +
+  labs(x = "Word Length",
+       y = "Tabooness") +
+  cowplot::theme_cowplot() +
+  scale_x_continuous(breaks = c(3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)) +
+  geom_smooth(method = "lm")
+```
+
+# Regression examining the effects of word length and valence on tabooness
+```{r}
+taboo_model <- lm(data$Taboo ~ data$Nlett + data$Valence)
+summary(taboo_model)
+```
+
+Both valence and word length account for ~20% of the variance in tabooness. Estimates show that valence has a statistically significant effect on tabooness (*p* < .001), whereas word length (*p* = .07) does not.
+
